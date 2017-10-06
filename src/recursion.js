@@ -7,20 +7,101 @@
 // Example: 5! = 5 x 4 x 3 x 2 x 1 = 120
 // factorial(5); // 120
 var factorial = function(n) {
+  if (n === 0) {
+    return 1;
+  } else if (n < 0) {
+    return null;
+  }
+  return n * factorial(n - 1);
 };
 
 // 2. Compute the sum of an array of integers.
 // sum([1,2,3,4,5,6]); // 21
 var sum = function(array) {
+  if (array.length === 1) {
+    return array[0];
+  } else if (!array[0]) {
+    return 0;
+  }
+  var last = array.pop();
+  return last + sum(array);
 };
 
 // 3. Sum all numbers in an array containing nested arrays.
 // arraySum([1,[2,3],[[4]],5]); // 15
+
+//Check if first value is an array
+//if so
+  //hold the array's shifted value
+  //unshift the array, spreading the prior value
+  //run it through the beginning check
+//otherwise
+  //return the value plus the remainder of the array
 var arraySum = function(array) {
+  if (Array.isArray(array[0])) {
+    var first = array.shift();
+    array.unshift(...first);
+    arraySum(array);
+  }
+  if (array.length === 0) {
+    return 0;
+  }
+  if (array.length === 1) {
+    return array[0];
+  }
+  var hold = array[0];
+  var remainder = array.slice(1);
+  return hold + arraySum(remainder);
 };
 
 // 4. Check if a number is even.
+//Considerations
+  //Should not use modulo
+  //Should work with neg ints
+  //Ignoring non-ints for now
+//Subtract one until we reach 0
+//Create a counter each time we recurse
+//Sum the counter as we recurse back through the stack
+//When we reach 0 return the counter
+//At the last stack layer, divide the counter by 2
+  //If that value is an integer
+    //return true
+    //otherwise return false
+
+// var isEven = function(n, tracker) {
+//   if (n === 0) {
+//     if (tracker === undefined) {
+//       return true;
+//     }
+//     return (Number.isInteger(tracker / 2));
+//   }
+//   if (n > 0) {
+//     if (tracker === undefined) {
+//       tracker = 0;
+//     }
+//     return isEven(n - 1, tracker + 1);
+//   }
+//   if (n < 0) {
+//     if (tracker === undefined) {
+//       tracker = 0;
+//     }
+//     return isEven(n + 1, tracker + 1);
+//   }
+// };
+
 var isEven = function(n) {
+  if (n === 0) {
+    return true;
+  }
+  if (n === 1 || n === -1) {
+    return false;
+  }
+  if (n > 1) {
+    return isEven(n - 2);
+  }
+  if (n < -1) {
+    return isEven(n + 2);
+  }
 };
 
 // 5. Sum all integers below a given integer.
@@ -40,6 +121,14 @@ var range = function(x, y) {
 // exponent(4,3); // 64
 // https://www.khanacademy.org/computing/computer-science/algorithms/recursive-algorithms/a/computing-powers-of-a-number
 var exponent = function(base, exp) {
+  if (exp === 0) {
+    return 1;
+  }
+  if (exp > 0) {
+    return base * exponent(base, exp - 1)
+  } else if (exp < 0) {
+    return exponent(base, exp + 1) / base;
+  }
 };
 
 // 8. Determine if a number is a power of two.
