@@ -107,12 +107,52 @@ var isEven = function(n) {
 // 5. Sum all integers below a given integer.
 // sumBelow(10); // 45
 // sumBelow(7); // 21
+
+//BC: n is 0
+  //R: 0
+//Hold 1 less than the current value
+//Return held value and recursive call
 var sumBelow = function(n) {
+  if (n === 0) {
+    return 0;
+  }
+  if (n >= 1) {
+    var held = n - 1;
+    return held + sumBelow(held);
+  }
+  if (n <= 1) {
+    var held = n + 1;
+    return held + sumBelow(held);
+  }
 };
 
 // 6. Get the integers within a range (x, y).
 // range(2,9); // [3,4,5,6,7,8]
+
+//BC: When x = y
+  //R: Return
+//Add one to x
+//Push that value into an array
+//Return the concatenated array and recursive call
+
 var range = function(x, y) {
+  if (x === y) {
+    return [];
+  }
+  if (x < y) {
+    if (x + 1 !== y) {
+      var held = x + 1;
+      return [held].concat(range(held, y));
+    }
+    return [];
+  }
+  if (x > y) {
+    if (x - 1 !== y) {
+      var held = x - 1;
+      return [held].concat(range(held, y));
+    }
+    return [];
+  }
 };
 
 // 7. Compute the exponent of a number.
