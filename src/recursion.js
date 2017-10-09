@@ -175,15 +175,61 @@ var exponent = function(base, exp) {
 // powerOfTwo(1); // true
 // powerOfTwo(16); // true
 // powerOfTwo(10); // false
+
+//BC:
+
+//Math.pow
+
 var powerOfTwo = function(n) {
+  if (n === 1) {
+    return true;
+  }
+  if (n < 1) {
+    return false;
+  }
+  if (n > 1) {
+    return powerOfTwo(n / 2);
+  }
 };
 
 // 9. Write a function that reverses a string.
+//BC: String's length is 0
+  //R: Return
+//Hold the first character
+//Slice the rest
+//Return the held value and recursively call the rest
+
 var reverse = function(string) {
+  if (string.length === 0) {
+    return '';
+  }
+  var held = string.charAt(string.length - 1);
+  var remainder = string.slice(0, string.length - 1);
+  return held + reverse(remainder);
 };
 
 // 10. Write a function that determines if a string is a palindrome.
+//Considerations
+  //Should ignore spaces and capital letters
+
+//Borrow reverse implementation
+//Upon reaching the base case
+  //
+
 var palindrome = function(string) {
+  if (string.length === 0) {
+    return true;
+  }
+  if (string.length === 1) {
+    return true;
+  }
+  var first = string[0].toLowerCase();
+  var last = string[string.length - 1].toLowerCase();
+
+  if (first === last) {
+    return palindrome(string.slice(1, string.length - 1));
+  }
+  return false;
 };
 
 // 11. Write a function that returns the remainder of x divided by y without using the
